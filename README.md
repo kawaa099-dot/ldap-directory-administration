@@ -55,8 +55,8 @@ Designed and implemented a 4-level organizational directory tree (a themed multi
 - `ldif/` — LDIF files used to build the directory tree and access control policy
 - `magia_arboles.ldif` — Initial directory tree structure
 - `ruless.ldif` — Core access control rules 
-- `arbol2.ldif`, `part4.ldif` — Directory tree extensions
-- `add.ldif`, `ss.ldif` — Additional ACL rules
+- `arbol2.ldif` — Directory tree extensions
+- `add.ldif` — Additional ACL rules
 
 # Tools & Environment
 
