@@ -1,0 +1,30 @@
+# add new localidad a Dumbledore
+dn: cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com
+changetype: modify
+replace: description
+description: Director de Hogwarts y Jefa del Gran Comedor
+-
+replace: l
+l: Castillo de Hogwarts, Romania
+
+# lugar de trabajo
+dn: cn=minerva,ou=prof,dc=hogwarts,dc=arlinux,dc=com
+changetype: modify
+replace: physicalDeliveryOfficeName
+physicalDeliveryOfficeName: Despacho de Transfiguración, Segundo Piso
+
+# create new branch ou,"Personal No Docente"(Staff) under HOGWARTS
+dn: ou=staff,dc=hogwarts,dc=arlinux,dc=com
+changetype: add
+objectClass: organizationalUnit
+ou: staff
+
+# add Qina como personal de Staff
+dn: cn=qina,ou=staff,dc=hogwarts,dc=arlinux,dc=com
+changetype: add
+objectClass: inetOrgPerson
+cn: qina
+sn: Qina
+description: Celador y encargado de mantenimiento
+telephoneNumber: 777-9999
+userPassword: {SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc

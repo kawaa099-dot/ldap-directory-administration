@@ -1,0 +1,187 @@
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+replace: olcAccess
+# {0} userPassword:
+# - admin can manage it
+# - each user can read/write only their own password
+# - anonymous may authenticate
+# - nobody else can read it
+olcAccess: {0}to attrs=userPassword
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by self write
+  by anonymous auth
+  by * none
+-
+add: olcAccess
+# {1} Gryffindor students' mail
+# - admin full control
+# - Minerva and Dumbledore can modify
+# - all professors can read
+# - all students can read
+olcAccess: {1}to dn.children="ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com" attrs=mail
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=minerva,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {2} Other Hogwarts students' mail (e.g. Hufflepuff)
+# - admin full control
+# - Dumbledore can modify
+# - all professors can read
+# - all students can read
+olcAccess: {2}to dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" attrs=mail
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {3} Mail of non-Hogwarts students (Beauxbatons / Durmstrang)
+# - admin full control
+# - professors can read
+# - all students can read
+olcAccess: {3}to attrs=mail
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {4} telephoneNumber of Hogwarts students
+# - admin full control
+# - professors can read
+# - Hogwarts students can read
+olcAccess: {4}to dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" attrs=telephoneNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {5} telephoneNumber of Beauxbatons students
+# - admin full control
+# - professors can read
+# - Beauxbatons students can read
+olcAccess: {5}to dn.subtree="ou=alum,dc=beauxbatons,dc=arlinux,dc=com" attrs=telephoneNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=beauxbatons,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {6} telephoneNumber of Durmstrang students
+# - admin full control
+# - professors can read
+# - Durmstrang students can read
+olcAccess: {6}to dn.subtree="ou=alum,dc=durmstrang,dc=arlinux,dc=com" attrs=telephoneNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=durmstrang,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {7} Gryffindor roomNumber
+# - admin full control
+# - professors can read
+# - only Gryffindor students can read
+olcAccess: {7}to dn.children="ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com" attrs=roomNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.children="ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {8} Hufflepuff roomNumber
+# - admin full control
+# - professors can read
+# - only Hufflepuff students can read
+olcAccess: {8}to dn.children="ou=huffle,ou=alum,dc=hogwarts,dc=arlinux,dc=com" attrs=roomNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.children="ou=huffle,ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {9} Beauxbatons roomNumber
+# - admin full control
+# - professors can read
+# - only Beauxbatons students can read
+olcAccess: {9}to dn.children="ou=alum,dc=beauxbatons,dc=arlinux,dc=com" attrs=roomNumber
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.children="ou=alum,dc=beauxbatons,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {10} Hogwarts professors
+# - admin full control
+# - all professors can read
+# - Hogwarts students can read
+olcAccess: {10}to dn.children="ou=prof,dc=hogwarts,dc=arlinux,dc=com"
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {11} Beauxbatons professors
+olcAccess: {11}to dn.children="ou=prof,dc=beauxbatons,dc=arlinux,dc=com"
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=beauxbatons,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {12} Durmstrang professors
+olcAccess: {12}to dn.children="ou=prof,dc=durmstrang,dc=arlinux,dc=com"
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by dn.subtree="ou=alum,dc=durmstrang,dc=arlinux,dc=com" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {13} Hogwarts students (all attrs except userPassword)
+# - admin full control
+# - Dumbledore can modify all attrs
+# - professors can read
+# - each user reads own entry
+olcAccess: {13}to dn.subtree="ou=alum,dc=hogwarts,dc=arlinux,dc=com"
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.exact="cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by self read
+  by * break
+-
+add: olcAccess
+# {14} Catch-all
+# - admin writes everything
+# - professors read everything
+# - each user reads own entry
+olcAccess: {14}to *
+  by dn.exact="cn=admin,dc=arlinux,dc=com" write
+  by dn.regex="^.*,ou=prof,.*,dc=arlinux,dc=com$" read
+  by self read
+  by * none
+
+olcAccess: {15}to dn.subtree="dc=arlinux,dc=com"
+  by users read
+  by * break

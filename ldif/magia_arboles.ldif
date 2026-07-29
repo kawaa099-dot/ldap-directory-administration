@@ -1,0 +1,147 @@
+#passwd: kerusi
+
+# The Root/Base of tree
+dn: dc=arlinux,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: arlinux
+dc: arlinux
+
+# Level1: schools
+dn: dc=durmstrang,dc=arlinux,dc=com
+objectClass: domain
+dc: durmstrang
+
+dn: dc=beauxbatons,dc=arlinux,dc=com
+objectClass: domain
+dc: beauxbatons
+
+dn: dc=hogwarts,dc=arlinux,dc=com
+objectClass: domain
+dc: hogwarts
+
+# Level 2: Organizational Units (ou)
+# Durmstrang Profs
+dn: ou=prof,dc=durmstrang,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: prof
+
+# Beauxbatons alum y prof
+dn: ou=alum,dc=beauxbatons,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: alum
+
+dn: ou=prof,dc=beauxbatons,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: prof
+
+# Hogwarts alum y prof
+dn: ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: alum
+
+dn: ou=prof,dc=hogwarts,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: prof
+
+# Level 3: Hogwarts Houses (sub-OUs/2nd OU)
+dn: ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: gryf
+
+dn: ou=huffle,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: organizationalUnit
+ou: huffle
+
+# Level 4: People (leaf nodes)
+
+# Prof Karkarov (dc=durmstrang)
+dn: cn=karkarov,ou=prof,dc=durmstrang,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: karkarov
+sn: Igor
+mail: karkarov@durmstrang.edu
+telephoneNumber: 355-6655
+employeeNumber: IMP001
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Fleur (dc=beauxbatons alum)
+dn: cn=fleur,ou=alum,dc=beauxbatons,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: fleur
+sn: Delacour
+mail: fleur@beauxbatons.edu
+telephoneNumber: 455-4475
+roomNumber: 301
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Mdm Maxime (dc=beauxbatons prof)
+dn: cn=mmaxime,ou=prof,dc=beauxbatons,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: mmaxime
+sn: Maxime
+mail: mmaxime@beauxbatons.edu
+telephoneNumber: 355-6657
+employeeNumber: IMP002
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Hermione (dc=hogwarts alum)
+dn: cn=hgranger,ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: hgranger
+sn: Granger
+mail: hgranger@hogwarts.edu
+telephoneNumber: 455-4477
+roomNumber: 402
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Harry (dc=hogwarts alum)
+dn: cn=hpotter,ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: hpotter
+sn: Potter
+mail: hpotter@hogwarts.edu
+telephoneNumber: 455-4478
+roomNumber: 403
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Cedric (ou=Hufflepuff alum)
+dn: cn=cedric,ou=huffle,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: cedric
+sn: Diggory
+mail: cedric@hogwarts.edu
+telephoneNumber: 455-4667
+roomNumber: 501
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Minerva (dc=hogwarts prof)
+dn: cn=minerva,ou=prof,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: minerva
+sn: McGonagall
+mail: minerva@hogwarts.edu
+telephoneNumber: 355-0023
+employeeNumber: IMP003
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Dumbledore (dc=hogwarts prof)
+dn: cn=dumbledore,ou=prof,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: dumbledore
+sn: Albus
+mail: albus@hogwarts.edu
+telephoneNumber: 355-0083
+employeeNumber: IMP004
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc
+
+# Madeye (dc=hogwarts prof)
+dn: cn=madeye,ou=prof,dc=hogwarts,dc=arlinux,dc=com
+objectClass: inetOrgPerson
+cn: madeye
+sn: Moody
+mail: madeye@hogwarts.edu
+telephoneNumber: 355-0093
+employeeNumber: IMP005
+userPassword:{SSHA}auppNmzSKe5WBCBkq2NcFB252T3rnFuc

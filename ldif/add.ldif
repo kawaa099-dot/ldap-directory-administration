@@ -1,0 +1,4 @@
+dn: cn=hpotter,ou=gryf,ou=alum,dc=hogwarts,dc=arlinux,dc=com
+changetype: modify
+add: telephoneNumber
+telephoneNumber: 555-8888
